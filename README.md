@@ -1,6 +1,41 @@
 # grunt-lightweight-template-precompiler
 
-> Ultra lightweight js template precompiler
+> Ultra lightweight js template precompiler. You can compile the template without the need of any runtime compilation library
+
+Converts the following template
+```html
+<!-- awesome-template.html -->
+<div class="foo">
+  <span class="bar">{value}</span>
+</div>
+```
+into the following
+```javascript
+(function() {
+  window.JST = window.JST || {};
+  
+  JST['awesome-template'] = function(data) {
+    return '<div class="foo">' + 
+              '<span class="bar">' + data.value + '</span>' +
+            '</div>';
+  }
+})()
+```
+which you can use as follows
+```javascript
+var element = document.getElementById('some-element-id');
+
+element.innerHTML = JST['awesome-template']({value: 'value'});
+```
+
+## Why not use JADE or Handlebars or Mustache ?
+Sometimes all you need is dynamic html content for smaller things. Templates like in the above example & you end writing those mini templates in javascript & the code becomes unreadable. Jade or Handlebars is kind of overkill for such small templates because even though you precompile them you still need to download their runtime libraries on the client side.
+
+This precompiler tries to solve that problem, write those mini templates in html, precompile them using this grunt plugin & use it on client side without the need of any runtime template libraries. 
+
+**P.S.:** If you have many templates & are not smaller then better go for JADE or Handlebars or Mustache
+
+By the way I need this while I was working on [stackoverflow-card](https://github.com/mudassir0909/stackoverflow-card) (I had only one template to compile).
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -37,46 +72,23 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.namespace
 Type: `String`
-Default value: `',  '`
+Default value: `JST`
 
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+A string value that is used to do namespace your compiled templates
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
 
 ```js
+In this example, all the precompiled templates
 grunt.initConfig({
   lightweight_template_precompiler: {
     options: {},
     files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  lightweight_template_precompiler: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+      'dist/templates.js': 'templates/some-template.html'
     },
   },
 });
