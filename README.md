@@ -35,7 +35,7 @@ This precompiler tries to solve that problem, write those mini templates in html
 
 **P.S.:** If you have many templates & are not smaller then better go for JADE or Handlebars or Mustache
 
-By the way I need this while I was working on [stackoverflow-card](https://github.com/mudassir0909/stackoverflow-card) (I had only one template to compile).
+By the way I needed this while I was working on [stackoverflow-card](https://github.com/mudassir0909/stackoverflow-card) (I had only one template to compile).
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
