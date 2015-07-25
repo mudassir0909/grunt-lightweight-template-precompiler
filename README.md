@@ -29,7 +29,7 @@ element.innerHTML = JST['awesome-template']({value: 'value'});
 ```
 
 ## Why not use JADE or Handlebars or Mustache ?
-Sometimes all you need is dynamic html content for smaller things. For examples, the template defined in the above example. If you write those mini templates in javascript, the code becomes unreadable. Jade or Handlebars is kind of overkill for such small templates because even though you precompile them you still need to download their runtime libraries on the client side.
+Sometimes all you need is dynamic html content for smaller things. Like the template defined in the above example. If you store those mini templates in javascript variables, the code becomes unreadable & we'll be mixing presentation logic with business logic. Jade or Handlebars is kind of overkill for such small templates because even though you precompile them you still need to download their runtime libraries on the client side.
 
 This precompiler tries to solve that problem, write those mini templates in html, precompile them using this grunt plugin & use it on client side without the need of any runtime template libraries. 
 
